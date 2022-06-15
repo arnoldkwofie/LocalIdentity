@@ -27,6 +27,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -145,18 +146,28 @@ namespace LocalIdentity.STS.Identity.Controllers
             if (ModelState.IsValid)
             {
                 //var newUser = await _userManager.FindByNameAsync("admin");
+                //var newUser1 = await _userManager.FindByNameAsync("mishrule");
 
 
                 //var newUser = new TUser
                 //{
-                //    UserName = "",
-                //    Email = ""
+                //    UserName = "admin",
+                //    Email = "akwofie1@umat.edu.gh"
                 //};
-                //var isSuccess = await _userManager.CreateAsync(newUser, "password");
+                //var newUser1 = new TUser
+                //{
+                //    UserName = "mishrule",
+                //    Email = "eknkrumah1@umat.edu.gh"
+                //};
 
-
+                //var isSuccess = await _userManager.CreateAsync(newUser, "Ak14030415%");
+                //var isSuccess1 = await _userManager.CreateAsync(newUser1, "Ekn5586123@1");
 
                 //var addClaims = await _userManager.AddClaimsAsync(newUser, new Claim[]
+                //{
+                //    new Claim(JwtClaimTypes.Role, "Administrator")
+                //});
+                //var addClaims1 = await _userManager.AddClaimsAsync(newUser1, new Claim[]
                 //{
                 //    new Claim(JwtClaimTypes.Role, "Administrator")
                 //});
@@ -642,6 +653,14 @@ namespace LocalIdentity.STS.Identity.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+            var claims = new List<Claim>
+            {
+                new (JwtClaimTypes.Name, user.UserName),
+                new (JwtClaimTypes.Email, user.Email),
+                new (JwtClaimTypes.Role, "User"),
+            };
+            var setClaims = await _userManager.AddClaimsAsync(user, claims);
+
             if (result.Succeeded)
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
