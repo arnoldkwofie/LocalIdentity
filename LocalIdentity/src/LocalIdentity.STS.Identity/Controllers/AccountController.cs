@@ -642,8 +642,15 @@ namespace LocalIdentity.STS.Identity.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+
             if (result.Succeeded)
             {
+                var addClaims = await _userManager.AddClaimsAsync(user, new Claim[]
+                {
+                    new Claim("Name", user.UserName),
+                    new Claim(JwtClaimTypes.Email, user.Email)
+                });
+
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, HttpContext.Request.Scheme);
