@@ -145,32 +145,37 @@ namespace LocalIdentity.STS.Identity.Controllers
 
             if (ModelState.IsValid)
             {
-                //var newUser = await _userManager.FindByNameAsync("admin");
-                //var newUser1 = await _userManager.FindByNameAsync("mishrule");
+                var newUser = await _userManager.FindByNameAsync("admin");
+                var newUser1 = await _userManager.FindByNameAsync("arnold");
 
 
-                //var newUser = new TUser
+                //newUser = new TUser
                 //{
                 //    UserName = "admin",
-                //    Email = "akwofie1@umat.edu.gh"
+                //    Email = "example@umat.edu.gh"
                 //};
-                //var newUser1 = new TUser
+
+                //newUser1 = new TUser
                 //{
-                //    UserName = "mishrule",
-                //    Email = "eknkrumah1@umat.edu.gh"
+                //    UserName = "arnold",
+                //    Email = "akwofie1@umat.edu.gh"
                 //};
 
                 //var isSuccess = await _userManager.CreateAsync(newUser, "Ak14030415%");
-                //var isSuccess1 = await _userManager.CreateAsync(newUser1, "Ekn5586123@1");
+                //var isSuccess1 = await _userManager.CreateAsync(newUser1, "Ak14030415%");
 
                 //var addClaims = await _userManager.AddClaimsAsync(newUser, new Claim[]
                 //{
-                //    new Claim(JwtClaimTypes.Role, "Administrator")
+                //    new Claim(JwtClaimTypes.Role, "Administrator"),
+                //    new Claim(JwtClaimTypes.Email, "example@umat.edu.gh")
                 //});
                 //var addClaims1 = await _userManager.AddClaimsAsync(newUser1, new Claim[]
                 //{
-                //    new Claim(JwtClaimTypes.Role, "Administrator")
+                    //new Claim(JwtClaimTypes.Role, "Administrator"),
+                   // new Claim(JwtClaimTypes.Email, "akwofie1@umat.edu.gh"),
+                    //new Claim("Name", "Arnold")
                 //});
+
 
                 var user = await _userResolver.GetUserAsync(model.Username);
                 if (user != default(TUser))
